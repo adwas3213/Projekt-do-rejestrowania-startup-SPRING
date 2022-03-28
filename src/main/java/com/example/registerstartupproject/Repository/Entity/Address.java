@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 @Entity
 @Data
@@ -20,13 +20,20 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty
+    @NotNull
     private String street;
-    private int number;
+    @NotEmpty
+    @NotNull
+    private String number;
+    @NotEmpty
+    @NotNull
     private String city;
-    private String postalCode;
-    private boolean isLeader;
-    @Email
-    private String email;
+    @NotEmpty
+    @NotNull
+    private String postal;
+
+
 
 
 }

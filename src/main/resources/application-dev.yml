@@ -7,4 +7,3 @@ spring:
     hibernate:
       ddl-auto: create-drop
     database-platform: org.hibernate.dialect.H2Dialect
-#Fixme Przy spring security nie działa access do bazy H2 -> Znaleźć odpowiedni wpis w properties/yml i dodać obsługę we filtrze

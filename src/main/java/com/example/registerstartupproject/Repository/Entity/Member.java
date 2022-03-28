@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Participant {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +31,13 @@ public class Participant {
     String school;
     @NotEmpty
     @NotNull
-    String telephone;
+    String phoneNumber;
 
     @OneToOne
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     @JoinColumn(name = "address_id")
-     Address address;
+    Address address;
+
 
     boolean isLeader;
     @Email
