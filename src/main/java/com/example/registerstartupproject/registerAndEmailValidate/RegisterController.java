@@ -1,10 +1,10 @@
 package com.example.registerstartupproject.registerAndEmailValidate;
 
+import com.example.registerstartupproject.Repository.Entity.TokenToRegistry;
 import com.example.registerstartupproject.registerAndEmailValidate.DTO.RegisterDtoOuter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -22,10 +22,18 @@ public class RegisterController {
         boolean response = registerService.createNewTeamWithValidation(registerDtoOuter);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/validate")
+    public ResponseEntity<Boolean> verifyEmail(@RequestParam TokenToRegistry token)
+    {
 
+        boolean response=registerService.validateEmail(token);
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/resendEmail")
+    @ResponseStatus(HttpStatus.OK)
+    public void resendEmailToGivenAddress(@RequestParam String email)
+    {
+        registerService.resendEmail(email);
 
-    ///TODO 1) zmapowanie /register
-    //OK
-    ///TODO 2) zmapowanie /validate
-    ///TODO 3) zmapowanie /resendEmail
+    }
 }

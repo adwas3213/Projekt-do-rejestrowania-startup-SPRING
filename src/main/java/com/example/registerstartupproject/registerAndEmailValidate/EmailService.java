@@ -43,4 +43,20 @@ public class EmailService {
         javaMailSender.send(mimeMessage);
         return "Sent";
     }
+    public String sendMail(RegisterTeam user) throws MessagingException {
+        Context context = new Context();
+        context.setVariable("user", user);
+        context.setVariable("validateLink", frontEndLink + "/validate?token=" + user.getTokenToRegistry().getToken());
+
+
+        String process = templateEngine.process("emails/registerConfirmationEmail.html", context);
+        javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+
+        helper.setSubject("Witaj w konkursie Elevator pitch !");
+        helper.setText(process, true);
+        helper.setTo(user.getEmail());
+        javaMailSender.send(mimeMessage);
+        return "Sent";
+    }
 }

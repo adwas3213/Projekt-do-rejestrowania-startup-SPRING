@@ -8,6 +8,8 @@ import com.example.registerstartupproject.registerAndEmailValidate.DTO.RegisterD
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -36,30 +38,59 @@ public class RegisterService {
             RegisterTeam registerTeam= registerMapper.mapToRegisterTeamRegisterDtoOuter(registerDtoOuter);
             registerTeam.setTokenToRegistry(tokenToRegistry);
             registerTeamRepository.save(registerTeam);
-            //OK
+
             try {
                 System.out.println(registerDtoOuter);
                 emailService.sendMail(registerDtoOuter,tokenToRegistry);
-
             } catch (Exception e)
             {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
                 return false;
             }
-
-
-            // System.out.println(uuidWithOutDashes);
-
         } else {
             return false;
         }
-//        System.out.println(registerDtoOuter);
         return true;
     }
+    @Transactional
+    public boolean validateEmail(TokenToRegistry tokenToRegistry)
+    {
+        Optional<RegisterTeam> teamOptional= registerTeamRepository.getRegisterTeamsByTokenToRegistry(tokenToRegistry);
+        if(teamOptional.isPresent())
+        {
+           var team= teamOptional.get();
+           team.setEnabled(true);
+           return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
+    public void resendEmail(String email)
+    {
+        Optional<RegisterTeam> foundEmail = registerTeamRepository.findByEmail(email);
+        if(foundEmail.isEmpty())
+        {
+            throw new RuntimeException("Sth went wrong with email");
+        }else
+        {
+            try {
+                emailService.sendMail(foundEmail.get());
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+
+
+    }
     public RegisterService(EmailService emailService, RegisterTeamRepository registerTeamRepository,
-                           TokenToRegistryRepository tokenToRegistryRepository, RegisterMapper registerMapper, @Value("${frontEndLink}") String frontEndLink) {
+                           TokenToRegistryRepository tokenToRegistryRepository, RegisterMapper registerMapper,
+                           @Value("${frontEndLink}") String frontEndLink) {
         this.emailService = emailService;
         this.registerTeamRepository = registerTeamRepository;
         this.tokenToRegistryRepository = tokenToRegistryRepository;

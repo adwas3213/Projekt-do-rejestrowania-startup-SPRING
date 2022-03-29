@@ -36,7 +36,7 @@ public class Member {
     @OneToOne
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     @JoinColumn(name = "address_id")
-    Address address;
+    Address adress;
 
 
     boolean isLeader;

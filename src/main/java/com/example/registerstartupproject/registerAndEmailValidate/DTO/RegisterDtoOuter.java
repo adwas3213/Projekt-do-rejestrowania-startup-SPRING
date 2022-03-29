@@ -15,7 +15,7 @@ import java.util.List;
 public class RegisterDtoOuter {
     @NotNull
     @NotEmpty
-    private String userName;
+    private String username;
     @NotNull
     @NotEmpty
     private String password;

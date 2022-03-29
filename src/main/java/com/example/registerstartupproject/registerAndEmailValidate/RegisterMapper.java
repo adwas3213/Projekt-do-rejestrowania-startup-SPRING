@@ -18,7 +18,7 @@ public class RegisterMapper {
         registerTeam.setEmail(registerDtoOuter.getEmail());
         registerTeam.setEnabled(false);
         registerTeam.setPassword(registerDtoOuter.getPassword());
-        registerTeam.setUsername(registerDtoOuter.getUserName());
+        registerTeam.setUsername(registerDtoOuter.getUsername());
         registerTeam.setMembers(registerDtoOuter.getMembers()
                 .stream().map(this::mapToMemberMemberDtoOuter)
                 .collect(Collectors.toList()));
@@ -40,7 +40,7 @@ public class RegisterMapper {
     Member mapToMemberMemberDtoOuter(MemberDtoOuter memberDtoOuter) {
 
         Member member = new Member();
-        member.setAddress(mapToAddressAddressDtoOuter(memberDtoOuter.getAdress()));
+        member.setAdress(mapToAddressAddressDtoOuter(memberDtoOuter.getAdress()));
         member.setEmail(memberDtoOuter.getEmail());
         member.setLeader(memberDtoOuter.getIsLeader());
 
