@@ -1,4 +1,3 @@
-frontEndLink : http://localhost:3000
 spring:
   mail:
 

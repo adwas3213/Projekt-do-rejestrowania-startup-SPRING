@@ -37,11 +37,12 @@ public class RegisterService {
             TokenToRegistry tokenToRegistry = new TokenToRegistry(uuidWithOutDashes);
             RegisterTeam registerTeam= registerMapper.mapToRegisterTeamRegisterDtoOuter(registerDtoOuter);
             registerTeam.setTokenToRegistry(tokenToRegistry);
-            registerTeamRepository.save(registerTeam);
+
 
             try {
                 System.out.println(registerDtoOuter);
                 emailService.sendMail(registerDtoOuter,tokenToRegistry);
+                registerTeamRepository.save(registerTeam);
             } catch (Exception e)
             {
                 System.out.println(e.getMessage());

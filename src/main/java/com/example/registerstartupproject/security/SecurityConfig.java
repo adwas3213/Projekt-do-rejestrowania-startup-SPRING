@@ -28,23 +28,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new InMemoryUserDetailsManager(moderator, admin);
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.httpBasic().and()
                 .authorizeHttpRequests()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/console/*").permitAll()
+                .antMatchers("/console/**").permitAll()
+                .antMatchers("/").permitAll()
                 .and()
                 .formLogin()
                 .and()
                 .logout()
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+                .headers().frameOptions().disable();
+        ;
+
         //TODO  dopisac i zrobić SECURITY
-        http.authorizeRequests().antMatchers("/").permitAll().and()
-                .authorizeRequests().antMatchers("/console/**").permitAll();
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
+
 
     }
 }
