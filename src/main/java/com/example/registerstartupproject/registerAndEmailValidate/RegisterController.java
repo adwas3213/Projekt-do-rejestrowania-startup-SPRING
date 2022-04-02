@@ -1,8 +1,8 @@
 package com.example.registerstartupproject.registerAndEmailValidate;
 
 import com.example.registerstartupproject.Repository.Entity.TokenToRegistry;
+import com.example.registerstartupproject.registerAndEmailValidate.DTO.ContactDTO;
 import com.example.registerstartupproject.registerAndEmailValidate.DTO.RegisterDtoOuter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,37 +11,55 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin(origins = "${frontEndLink}" , allowedHeaders = "*" )
+@CrossOrigin(origins = "${frontEndLink}", allowedHeaders = "*")
 public class RegisterController {
     private final RegisterService registerService;
+    private final ContactService contactService;
 
-    public RegisterController(RegisterService registerService) {
+    public RegisterController(RegisterService registerService, ContactService contactService) {
         this.registerService = registerService;
+        this.contactService = contactService;
     }
 
     @PostMapping("/register")
-    public Boolean register(@RequestBody @Valid RegisterDtoOuter registerDtoOuter,
-                            HttpServletResponse response)
-    {
+    public ResponseEntity<StatusOfRequest> register(@RequestBody @Valid RegisterDtoOuter registerDtoOuter,
+                                                    HttpServletResponse response) {
 
-        boolean responseStatus = registerService.createNewTeamWithValidation(registerDtoOuter);
-        return (responseStatus);
+        StatusOfRequest responseStatus = registerService.createNewTeamWithValidation(registerDtoOuter);
+
+        if(responseStatus== StatusOfRequest.EMAIL_EXIST)
+        {
+            return ResponseEntity.status(409).body(responseStatus);
+        } else if(responseStatus== StatusOfRequest.ERROR_WITH_SENDING_EMAIL)
+        {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(responseStatus);
+
+
     }
 
     @GetMapping("/validate")
-    public ResponseEntity<Boolean> verifyEmail(@RequestParam TokenToRegistry token)
-    {
-
-        boolean response=registerService.validateEmail(token);
+    public ResponseEntity<Boolean> verifyEmail(@RequestParam String token) {
+        TokenToRegistry tokenToRegistry=new TokenToRegistry(token);
+        boolean response = registerService.validateEmail(tokenToRegistry);
+        if(response==false)
+        {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/resendEmail")
     @ResponseStatus(HttpStatus.OK)
-    public void resendEmailToGivenAddress(@RequestParam String email)
-    {
+    public void resendEmailToGivenAddress(@RequestParam String email) {
         registerService.resendEmail(email);
+    }
 
+    @PostMapping("/contact-form")
+    @ResponseStatus(HttpStatus.OK)
+    public void contactFormSolver(@Valid @RequestBody ContactDTO contactDTO) {
+        contactService.sendContactMessage(contactDTO);
     }
 
 }

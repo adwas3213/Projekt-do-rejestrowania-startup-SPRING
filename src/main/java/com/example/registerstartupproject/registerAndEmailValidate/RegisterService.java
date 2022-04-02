@@ -22,7 +22,7 @@ public class RegisterService {
     private final String frontEndLink;
 
 
-    public boolean createNewTeamWithValidation(RegisterDtoOuter registerDtoOuter)//DTO
+    public StatusOfRequest createNewTeamWithValidation(RegisterDtoOuter registerDtoOuter)//DTO
     {
 
         boolean isPossiblyToCreateAccount = !registerTeamRepository.existsByEmail(registerDtoOuter.getEmail());
@@ -37,22 +37,19 @@ public class RegisterService {
             TokenToRegistry tokenToRegistry = new TokenToRegistry(uuidWithOutDashes);
             RegisterTeam registerTeam= registerMapper.mapToRegisterTeamRegisterDtoOuter(registerDtoOuter);
             registerTeam.setTokenToRegistry(tokenToRegistry);
-
-
             try {
-                System.out.println(registerDtoOuter);
                 emailService.sendMail(registerDtoOuter,tokenToRegistry);
                 registerTeamRepository.save(registerTeam);
             } catch (Exception e)
             {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
-                return false;
+                return StatusOfRequest.ERROR_WITH_SENDING_EMAIL;
             }
         } else {
-            return false;
+            return StatusOfRequest.EMAIL_EXIST;
         }
-        return true;
+        return StatusOfRequest.OK;
     }
     @Transactional
     public boolean validateEmail(TokenToRegistry tokenToRegistry)
@@ -84,7 +81,6 @@ public class RegisterService {
             {
                 e.printStackTrace();
             }
-
         }
 
 

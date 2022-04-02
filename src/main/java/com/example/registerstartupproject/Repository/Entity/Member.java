@@ -33,7 +33,7 @@ public class Member {
     @NotNull
     String phoneNumber;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     @JoinColumn(name = "address_id")
     Address adress;

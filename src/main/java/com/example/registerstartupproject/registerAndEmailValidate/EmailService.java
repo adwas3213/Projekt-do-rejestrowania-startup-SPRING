@@ -2,6 +2,7 @@ package com.example.registerstartupproject.registerAndEmailValidate;
 
 import com.example.registerstartupproject.Repository.Entity.RegisterTeam;
 import com.example.registerstartupproject.Repository.Entity.TokenToRegistry;
+import com.example.registerstartupproject.registerAndEmailValidate.DTO.ContactDTO;
 import com.example.registerstartupproject.registerAndEmailValidate.DTO.RegisterDtoOuter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -21,13 +22,17 @@ public class EmailService {
 
     private final String frontEndLink;
 
-    public EmailService(TemplateEngine templateEngine, JavaMailSender javaMailSender, @Value("${frontEndLink}") String frontEndLink) {
+    private final String supportEmail;
+
+    public EmailService(TemplateEngine templateEngine, JavaMailSender javaMailSender,
+                        @Value("${frontEndLink}") String frontEndLink, @Value("${emailSupport}") String supportEmail) {
         this.templateEngine = templateEngine;
         this.javaMailSender = javaMailSender;
         this.frontEndLink = frontEndLink;
+        this.supportEmail = supportEmail;
     }
 
-    public String sendMail(RegisterDtoOuter user, TokenToRegistry token) throws MessagingException {
+    public void sendMail(RegisterDtoOuter user, TokenToRegistry token) throws MessagingException {
         Context context = new Context();
         context.setVariable("user", user);
         context.setVariable("validateLink", frontEndLink + "/validate?token=" + token.getToken());
@@ -41,9 +46,9 @@ public class EmailService {
         helper.setText(process, true);
         helper.setTo(user.getEmail());
         javaMailSender.send(mimeMessage);
-        return "Sent";
+
     }
-    public String sendMail(RegisterTeam user) throws MessagingException {
+    public void sendMail(RegisterTeam user) throws MessagingException {
         Context context = new Context();
         context.setVariable("user", user);
         context.setVariable("validateLink", frontEndLink + "/validate?token=" + user.getTokenToRegistry().getToken());
@@ -57,6 +62,22 @@ public class EmailService {
         helper.setText(process, true);
         helper.setTo(user.getEmail());
         javaMailSender.send(mimeMessage);
-        return "Sent";
+
+    }
+    public void sendMail(ContactDTO contactDTO) throws MessagingException {
+        Context context = new Context();
+        context.setVariable("userWithMessage", contactDTO);
+
+
+        String process = templateEngine.process("emails/contactSupportMail.html", context);
+        javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+
+        helper.setSubject(contactDTO.getName()+" zostawił wiadomość");
+        helper.setText(process, true);
+        System.out.println(supportEmail);
+        helper.setTo(supportEmail);
+        javaMailSender.send(mimeMessage);
+
     }
 }

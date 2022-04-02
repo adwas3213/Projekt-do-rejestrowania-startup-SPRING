@@ -21,19 +21,24 @@ public class RegisterTeam implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @Cascade({CascadeType.PERSIST, CascadeType.DELETE})
     List<Member> members;
 
     String username;
+
     String email;
     String password;
     boolean isEnabled = false;
 
-    @OneToOne(cascade = javax.persistence.CascadeType.PERSIST)
+    @OneToOne(cascade = javax.persistence.CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "token")
     TokenToRegistry tokenToRegistry;
 
+
+    @OneToOne(fetch = FetchType.EAGER)
+
+    RegisterIdea idea;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
