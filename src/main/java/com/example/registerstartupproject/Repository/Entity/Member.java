@@ -34,7 +34,7 @@ public class Member {
     String phoneNumber;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.DELETE})
     @JoinColumn(name = "address_id")
     Address adress;
 

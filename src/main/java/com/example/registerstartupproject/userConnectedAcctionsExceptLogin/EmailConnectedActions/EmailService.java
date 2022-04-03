@@ -1,9 +1,9 @@
-package com.example.registerstartupproject.registerAndEmailValidate;
+package com.example.registerstartupproject.userConnectedAcctionsExceptLogin.EmailConnectedActions;
 
 import com.example.registerstartupproject.Repository.Entity.RegisterTeam;
 import com.example.registerstartupproject.Repository.Entity.TokenToRegistry;
-import com.example.registerstartupproject.registerAndEmailValidate.DTO.ContactDTO;
-import com.example.registerstartupproject.registerAndEmailValidate.DTO.RegisterDtoOuter;
+import com.example.registerstartupproject.userConnectedAcctionsExceptLogin.DTO.ContactDTO;
+import com.example.registerstartupproject.userConnectedAcctionsExceptLogin.DTO.RegisterDtoOuter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

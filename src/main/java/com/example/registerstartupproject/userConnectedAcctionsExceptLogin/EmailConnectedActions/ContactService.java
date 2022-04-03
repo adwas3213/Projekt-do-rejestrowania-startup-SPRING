@@ -1,10 +1,8 @@
-package com.example.registerstartupproject.registerAndEmailValidate;
+package com.example.registerstartupproject.userConnectedAcctionsExceptLogin.EmailConnectedActions;
 
-import com.example.registerstartupproject.registerAndEmailValidate.DTO.ContactDTO;
+import com.example.registerstartupproject.userConnectedAcctionsExceptLogin.DTO.ContactDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import javax.mail.MessagingException;
 
 @Service
 @RequiredArgsConstructor
@@ -12,7 +10,7 @@ public class ContactService {
    private final EmailService emailService;
 
 
-   void sendContactMessage (ContactDTO contactDTO)  {
+  public void sendContactMessage (ContactDTO contactDTO)  {
       try
       {
          emailService.sendMail(contactDTO);
