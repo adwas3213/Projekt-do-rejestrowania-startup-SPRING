@@ -1,4 +1,4 @@
-package com.example.registerstartupproject.registerAndEmailValidate.DTO;
+package com.example.registerstartupproject.userConnectedAcctionsExceptLogin.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,30 +7,25 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberDtoOuter {
-    @NotEmpty
+public class RegisterDtoOuter {
     @NotNull
-    private String name;
     @NotEmpty
+    private String username;
     @NotNull
-    private String surname;
+    @NotEmpty
+    private String password;
     @Email
-    @NotEmpty
     @NotNull
+    @NotEmpty
     private String email;
     @NotEmpty
     @NotNull
-    private String school;
-    @NotEmpty
-    @NotNull
-    private String phoneNumber;
-    @NotEmpty
-    @NotNull
-    AddressDtoOuter adress;
+    private List<MemberDtoOuter> members;
 
-    Boolean isLeader;
+
 }

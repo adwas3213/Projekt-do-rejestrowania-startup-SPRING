@@ -27,5 +27,10 @@ public class RegisterIdea {
     String review;
 
     LocalDateTime reviewSendingDate;
+    boolean passed;
 
+    public RegisterIdea(String content, LocalDateTime contentSendingDate) {
+        this.content = content;
+        this.contentSendingDate = contentSendingDate;
+    }
 }

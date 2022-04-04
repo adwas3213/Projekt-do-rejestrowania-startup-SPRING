@@ -1,4 +1,4 @@
-package com.example.registerstartupproject.registerAndEmailValidate.DTO;
+package com.example.registerstartupproject.userConnectedAcctionsExceptLogin.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

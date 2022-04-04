@@ -1,10 +1,10 @@
-package com.example.registerstartupproject.registerAndEmailValidate;
+package com.example.registerstartupproject.userConnectedAcctionsExceptLogin.EmailConnectedActions;
 
 import com.example.registerstartupproject.Repository.Entity.RegisterTeam;
 import com.example.registerstartupproject.Repository.Entity.TokenToRegistry;
 import com.example.registerstartupproject.Repository.RegisterTeamRepository;
 import com.example.registerstartupproject.Repository.TokenToRegistryRepository;
-import com.example.registerstartupproject.registerAndEmailValidate.DTO.RegisterDtoOuter;
+import com.example.registerstartupproject.userConnectedAcctionsExceptLogin.DTO.RegisterDtoOuter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +35,7 @@ public class RegisterService {
                 uuidWithOutDashes = uuid.toString().replace("-", "");
             } while (tokenToRegistryRepository.findById(uuidWithOutDashes).isPresent());
             TokenToRegistry tokenToRegistry = new TokenToRegistry(uuidWithOutDashes);
-            RegisterTeam registerTeam= registerMapper.mapToRegisterTeamRegisterDtoOuter(registerDtoOuter);
+            RegisterTeam registerTeam= registerMapper.mapToNewRegisterTeamRegisterDtoOuter(registerDtoOuter);
             registerTeam.setTokenToRegistry(tokenToRegistry);
             try {
                 emailService.sendMail(registerDtoOuter,tokenToRegistry);

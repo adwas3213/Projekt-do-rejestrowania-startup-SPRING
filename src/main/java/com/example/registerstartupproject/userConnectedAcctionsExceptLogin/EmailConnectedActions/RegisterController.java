@@ -1,8 +1,8 @@
-package com.example.registerstartupproject.registerAndEmailValidate;
+package com.example.registerstartupproject.userConnectedAcctionsExceptLogin.EmailConnectedActions;
 
 import com.example.registerstartupproject.Repository.Entity.TokenToRegistry;
-import com.example.registerstartupproject.registerAndEmailValidate.DTO.ContactDTO;
-import com.example.registerstartupproject.registerAndEmailValidate.DTO.RegisterDtoOuter;
+import com.example.registerstartupproject.userConnectedAcctionsExceptLogin.DTO.ContactDTO;
+import com.example.registerstartupproject.userConnectedAcctionsExceptLogin.DTO.RegisterDtoOuter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<StatusOfRequest> register(@RequestBody @Valid RegisterDtoOuter registerDtoOuter,
                                                     HttpServletResponse response) {
-
+        System.out.println(registerDtoOuter);
         StatusOfRequest responseStatus = registerService.createNewTeamWithValidation(registerDtoOuter);
 
         if(responseStatus== StatusOfRequest.EMAIL_EXIST)
