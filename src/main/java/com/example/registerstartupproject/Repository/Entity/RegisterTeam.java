@@ -5,18 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterTeam implements UserDetails {
+public class RegisterTeam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +30,7 @@ public class RegisterTeam implements UserDetails {
     String password;
     boolean isEnabled = false;
 
-    @OneToOne(cascade = javax.persistence.CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @OneToOne(cascade = javax.persistence.CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "token")
     TokenToRegistry tokenToRegistry;
 
@@ -40,28 +39,10 @@ public class RegisterTeam implements UserDetails {
 
     RegisterIdea idea;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
+    private Set<Role> roles = new HashSet<>();
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
 
-    @Override
-    public boolean isEnabled() {
-        return isEnabled;
-    }
 }

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class RegisterMapper {
     private final MemberRepository memberRepository;
 
-   public RegisterTeam mapToNewRegisterTeamRegisterDtoOuter(RegisterDtoOuter registerDtoOuter) {
+    public RegisterTeam mapToNewRegisterTeamRegisterDtoOuter(RegisterDtoOuter registerDtoOuter) {
         RegisterTeam registerTeam = new RegisterTeam();
         registerTeam.setEmail(registerDtoOuter.getEmail());
         registerTeam.setEnabled(false);
@@ -29,11 +29,11 @@ public class RegisterMapper {
                 .stream().map(this::mapToMemberMemberDtoOuter)
                 .collect(Collectors.toList()));
 
-
         return registerTeam;
     }
+
     @Transactional
-   public RegisterTeam mapToRegisterTeamRegisterDtoOuter(RegisterDtoOuter registerDtoOuter,RegisterTeam registerTeam) {
+    public RegisterTeam mapToRegisterTeamRegisterDtoOuter(RegisterDtoOuter registerDtoOuter, RegisterTeam registerTeam) {
         List<Member> members = registerTeam.getMembers();
         memberRepository.deleteAll(members);
 
@@ -42,12 +42,10 @@ public class RegisterMapper {
         registerTeam.setMembers(registerDtoOuter.getMembers()
                 .stream().map(this::mapToMemberMemberDtoOuter)
                 .collect(Collectors.toList()));
-
-
         return registerTeam;
     }
 
-   public Address mapToAddressAddressDtoOuter(AddressDtoOuter addressDtoOuter) {
+    public Address mapToAddressAddressDtoOuter(AddressDtoOuter addressDtoOuter) {
         ///OK
         Address address = new Address();
         address.setCity(addressDtoOuter.getCity());
@@ -57,7 +55,7 @@ public class RegisterMapper {
         return address;
     }
 
-   public Member mapToMemberMemberDtoOuter(MemberDtoOuter memberDtoOuter) {
+    public Member mapToMemberMemberDtoOuter(MemberDtoOuter memberDtoOuter) {
 
         Member member = new Member();
         member.setAdress(mapToAddressAddressDtoOuter(memberDtoOuter.getAddress()));
