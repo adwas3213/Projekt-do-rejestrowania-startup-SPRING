@@ -4,11 +4,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 //ControllerForTestingSecurity
+@CrossOrigin(origins = "${frontEndLink}", allowedHeaders = "*")
 public class HelloController {
     @GetMapping("/")
     public String hello(@AuthenticationPrincipal UsernamePasswordAuthenticationToken user) {

@@ -32,12 +32,13 @@ public class RegisterMapper {
         return registerTeam;
     }
 
+    ///We won't change any user authorities
+///To change password use other endpoint
     @Transactional
     public RegisterTeam mapToRegisterTeamRegisterDtoOuter(RegisterDtoOuter registerDtoOuter, RegisterTeam registerTeam) {
         List<Member> members = registerTeam.getMembers();
         memberRepository.deleteAll(members);
 
-        registerTeam.setPassword(registerDtoOuter.getPassword());
         registerTeam.setUsername(registerDtoOuter.getUsername());
         registerTeam.setMembers(registerDtoOuter.getMembers()
                 .stream().map(this::mapToMemberMemberDtoOuter)

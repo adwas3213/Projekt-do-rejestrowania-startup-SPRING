@@ -1,5 +1,6 @@
 package com.example.registerstartupproject.Repository.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +27,7 @@ public class RegisterTeam {
     String username;
 
     String email;
+    @JsonIgnore
     String password;
     boolean isEnabled = false;
 
@@ -42,7 +43,7 @@ public class RegisterTeam {
 
     @ManyToMany(fetch = FetchType.EAGER)
 
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
 
 }

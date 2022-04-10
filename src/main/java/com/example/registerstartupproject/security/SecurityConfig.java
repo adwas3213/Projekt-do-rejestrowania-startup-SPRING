@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+
         web.ignoring().antMatchers("/register")
                 .mvcMatchers("/validate")
                 .mvcMatchers("/resendEmail")
@@ -69,7 +70,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http
+//                .cors(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
+                .mvcMatchers("/secured").hasRole("ADMIN")
                 .antMatchers("/**").permitAll()
                 .mvcMatchers(HttpMethod.POST, "/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
@@ -80,6 +83,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/editUserData").permitAll()
                 .mvcMatchers("/h2-console**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .formLogin().disable().cors()
                 .and()
                 .headers().frameOptions().disable()
                 .and()
