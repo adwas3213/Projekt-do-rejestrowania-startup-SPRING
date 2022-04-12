@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1649708585728-1" author="Adam (generated)">
+        <createTable tableName="address">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_address"/>
+            </column>
+            <column name="street" type="VARCHAR(255)"/>
+            <column name="number" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="postal" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649708585728-2" author="Adam (generated)">
+        <createTable tableName="member">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_member"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="surname" type="VARCHAR(255)"/>
+            <column name="school" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="address_id" type="BIGINT"/>
+            <column name="is_leader" type="BOOLEAN"/>
+            <column name="email" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649708585728-3" author="Adam (generated)">
+        <createTable tableName="register_idea">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_registeridea"/>
+            </column>
+            <column name="content" type="VARCHAR(255)"/>
+            <column name="content_sending_date" type="DATETIME"/>
+            <column name="review" type="VARCHAR(255)"/>
+            <column name="review_sending_date" type="DATETIME"/>
+            <column name="status" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649708585728-4" author="Adam (generated)">
+        <createTable tableName="register_team">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_registerteam"/>
+            </column>
+            <column name="username" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="is_enabled" type="BOOLEAN"/>
+            <column name="token" type="VARCHAR(255)"/>
+            <column name="idea_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649708585728-5" author="Adam (generated)">
+        <createTable tableName="register_team_members">
+            <column name="register_team_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_registerteam_members"/>
+            </column>
+            <column name="members_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_registerteam_members"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649708585728-6" author="Adam (generated)">
+        <createTable tableName="register_team_roles">
+            <column name="register_team_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_registerteam_roles"/>
+            </column>
+            <column name="roles_role" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_registerteam_roles"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649708585728-7" author="Adam (generated)">
+        <createTable tableName="role">
+            <column name="role" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_role"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649708585728-8" author="Adam (generated)">
+        <createTable tableName="token_to_registry">
+            <column name="token" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_tokentoregistry"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1649708585728-9" author="Adam (generated)">
+        <addUniqueConstraint columnNames="members_id" constraintName="uc_register_team_members_members"
+                             tableName="register_team_members"/>
+    </changeSet>
+    <changeSet id="1649708585728-10" author="Adam (generated)">
+        <addForeignKeyConstraint baseColumnNames="address_id" baseTableName="member"
+                                 constraintName="FK_MEMBER_ON_ADDRESS" referencedColumnNames="id"
+                                 referencedTableName="address"/>
+    </changeSet>
+    <changeSet id="1649708585728-11" author="Adam (generated)">
+        <addForeignKeyConstraint baseColumnNames="idea_id" baseTableName="register_team"
+                                 constraintName="FK_REGISTERTEAM_ON_IDEA" referencedColumnNames="id"
+                                 referencedTableName="register_idea"/>
+    </changeSet>
+    <changeSet id="1649708585728-12" author="Adam (generated)">
+        <addForeignKeyConstraint baseColumnNames="token" baseTableName="register_team"
+                                 constraintName="FK_REGISTERTEAM_ON_TOKEN" referencedColumnNames="token"
+                                 referencedTableName="token_to_registry"/>
+    </changeSet>
+    <changeSet id="1649708585728-13" author="Adam (generated)">
+        <addForeignKeyConstraint baseColumnNames="members_id" baseTableName="register_team_members"
+                                 constraintName="fk_regteamem_on_member" referencedColumnNames="id"
+                                 referencedTableName="member"/>
+    </changeSet>
+    <changeSet id="1649708585728-14" author="Adam (generated)">
+        <addForeignKeyConstraint baseColumnNames="register_team_id" baseTableName="register_team_members"
+                                 constraintName="fk_regteamem_on_register_team" referencedColumnNames="id"
+                                 referencedTableName="register_team"/>
+    </changeSet>
+    <changeSet id="1649708585728-15" author="Adam (generated)">
+        <addForeignKeyConstraint baseColumnNames="register_team_id" baseTableName="register_team_roles"
+                                 constraintName="fk_regtearol_on_register_team" referencedColumnNames="id"
+                                 referencedTableName="register_team"/>
+    </changeSet>
+    <changeSet id="1649708585728-16" author="Adam (generated)">
+        <addForeignKeyConstraint baseColumnNames="roles_role" baseTableName="register_team_roles"
+                                 constraintName="fk_regtearol_on_role" referencedColumnNames="role"
+                                 referencedTableName="role"/>
+    </changeSet>
+
+</databaseChangeLog>

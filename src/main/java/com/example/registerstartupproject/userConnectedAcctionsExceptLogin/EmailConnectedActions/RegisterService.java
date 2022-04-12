@@ -45,16 +45,11 @@ public class RegisterService {
             Set<Role> roles = new HashSet<>();
             if (roleRepository.findById("USER").isEmpty()) {
                 Role user = new Role("USER");
-//                Role admin=new Role("ADMIN");
                 roleRepository.save(user);
-//                roleRepository.save(admin);
                 roles.add(user);
-//                roles.add(admin);
             } else {
 
                 Role user = new Role("USER");
-//                Role admin=new Role("ADMIN");
-//                roles.add(admin);
                 roles.add(user);
             }
 

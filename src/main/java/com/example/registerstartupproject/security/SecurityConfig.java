@@ -17,8 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 @Configuration
-@EnableWebSecurity(debug = true)
-
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final RestAuthenticationFailureHandler authenticationFailureHandler;
@@ -73,7 +72,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .cors(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
                 .mvcMatchers("/secured").hasRole("ADMIN")
-                .antMatchers("/**").permitAll()
                 .mvcMatchers(HttpMethod.POST, "/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
                 .mvcMatchers("/validate").permitAll()
@@ -82,6 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/h2-console").permitAll()
                 .mvcMatchers("/editUserData").permitAll()
                 .mvcMatchers("/h2-console**").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().disable().cors()

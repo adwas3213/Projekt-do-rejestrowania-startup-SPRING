@@ -1,5 +1,6 @@
 package com.example.registerstartupproject.Repository.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,9 +37,9 @@ public class Member {
     @OneToOne(fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.DELETE})
     @JoinColumn(name = "address_id")
-    Address adress;
+    Address address;
 
-
+@JsonProperty("isLeader")
     boolean isLeader;
     @Email
     @NotEmpty

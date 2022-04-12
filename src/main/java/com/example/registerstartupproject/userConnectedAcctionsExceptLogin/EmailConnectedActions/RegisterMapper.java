@@ -59,7 +59,7 @@ public class RegisterMapper {
     public Member mapToMemberMemberDtoOuter(MemberDtoOuter memberDtoOuter) {
 
         Member member = new Member();
-        member.setAdress(mapToAddressAddressDtoOuter(memberDtoOuter.getAddress()));
+        member.setAddress(mapToAddressAddressDtoOuter(memberDtoOuter.getAddress()));
         member.setEmail(memberDtoOuter.getEmail());
         member.setLeader(memberDtoOuter.getIsLeader());
 

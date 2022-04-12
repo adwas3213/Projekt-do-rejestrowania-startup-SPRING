@@ -1,6 +1,7 @@
 package com.example.registerstartupproject.Repository.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ public class RegisterTeam {
     String username;
 
     String email;
-    @JsonIgnore
+
     String password;
     boolean isEnabled = false;
 
@@ -44,6 +45,9 @@ public class RegisterTeam {
     @ManyToMany(fetch = FetchType.EAGER)
 
     private Set<Role> roles;
-
+    @JsonProperty
+    List roles() {
+        return roles.stream().toList();
+    }
 
 }
