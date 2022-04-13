@@ -16,19 +16,11 @@ public class RegisterIdea {
     @Id
     Long id;
 
-    String content;
-
-    LocalDateTime contentSendingDate;
-
-
     String review;
 
     LocalDateTime reviewSendingDate;
     @Enumerated(EnumType.ORDINAL)
     Status status;
 
-    public RegisterIdea(String content, LocalDateTime contentSendingDate) {
-        this.content = content;
-        this.contentSendingDate = contentSendingDate;
-    }
+
 }

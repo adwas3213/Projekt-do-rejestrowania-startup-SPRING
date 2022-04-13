@@ -5,6 +5,5 @@ spring:
     username: root
     password:
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: none

@@ -50,13 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/register")
                 .mvcMatchers("/validate")
                 .mvcMatchers("/resendEmail")
-                .mvcMatchers("/insertIdea")
-                .mvcMatchers("/h2-console")
                 .mvcMatchers("/editUserData")
-                .mvcMatchers("/h2-console/**")
-
-//            .mvcMatchers("/**") //DO DEBUGU I TWORZENIA NOWYCH FUNKCJONALNOSCI !
-
                 .mvcMatchers("/contact-form");
     }
 
@@ -69,18 +63,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http
-//                .cors(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
-                .mvcMatchers("/secured").hasRole("ADMIN")
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .mvcMatchers(HttpMethod.POST, "/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/register").permitAll()
                 .mvcMatchers("/validate").permitAll()
                 .mvcMatchers("/resendEmail").permitAll()
-                .mvcMatchers("/insertIdea").permitAll()
-                .mvcMatchers("/h2-console").permitAll()
-                .mvcMatchers("/editUserData").permitAll()
-                .mvcMatchers("/h2-console**").permitAll()
-                .antMatchers("/**").permitAll()
+                .mvcMatchers("/editUserData").hasRole("USER")
+                .mvcMatchers("/getUserData").hasAnyRole("USER","TEST","ADMIN")
+                .mvcMatchers("/changePassword").hasAnyRole("USER","ADMIN")
+                .mvcMatchers("/deleteTeam").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().disable().cors()

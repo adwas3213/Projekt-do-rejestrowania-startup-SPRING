@@ -1,12 +1,11 @@
 spring:
-
   liquibase:
     change-log: classpath:db/master.xml
-
   mail:
-    host : smtp.gmail.com
+    host : smtp.office365.com
     port: 587
     protocol: smtp
+
   properties:
     mail:
       smtp:

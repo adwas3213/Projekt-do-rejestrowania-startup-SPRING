@@ -1,9 +1,7 @@
 package com.example.registerstartupproject.Repository.Entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -39,7 +37,9 @@ public class Member {
     @JoinColumn(name = "address_id")
     Address address;
 
-@JsonProperty("isLeader")
+    @JsonProperty("isLeader")
+    @Setter
+    @Getter
     boolean isLeader;
     @Email
     @NotEmpty

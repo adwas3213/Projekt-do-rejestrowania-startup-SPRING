@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style style="display: none">
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            display: block;
+        }
+    </style>
+    <style style="display: none">
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    </style>
+</head>
+<body>
+<div style="width: 100%; font-family: 'Poppins', sans-serif; background-color: #e5e5e5">
+    <img src="https://i.imgur.com/ZSq5qftl.png" alt="Zdjęcie w banerze" style="margin: 0 auto; width: 100%;max-width: 600px; height: 245px; object-fit: cover" />
+    <div style="max-width: 600px; margin: 0 auto; padding: 30px 40px; background-color: #fff">
+        <h1 style="width: 100%; line-height: 36px; font-size: 24px; font-weight: 700; padding: 40px 0">
+            Wiadomosć od aministracji konkursu Elevator Pitch
+        </h1>
+        <div style="padding: 40px 30px; margin-bottom: 70px; width: 100%; background: #474f5a; font-size: 18px">
+            <h2 style="font-weight: 700; font-size: 18px; text-transform: capitalize; width: 100%; margin-bottom: 40px; color: #fff">
+                Szanowny zespole
+                <span th:text="${team.getUsername()}"
+                        style="font-weight: 400; font-size: 18px; text-transform: capitalize; width: 100%; margin-bottom: 40px; color: #85bd4b"
+                >{zespół}</span>
+            </h2>
+            <p th:text="${annoucment.getText()}" style="width: 100%; color: #fff; margin-bottom: 40px">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas illum ipsum voluptatum ea! Eaque veniam reiciendis id! Aut voluptates voluptatem nam accusamus est, dicta illum veritatis debitis eaque accusantium similique!
+            </p>
+            <a
+                    th:href="${frontEndLink + '/user/dashboard'}"
+                    href="http://localhost:3000/user/dashboard"
+                    style="display: inline-block; padding: 10px 20px; background-color: #85bd4b; color: #fff; text-decoration: none; font-size: 18px; font-weight: 700; text-transform: uppercase">Zobacz</a>
+        </div>
+        <p style="width: 100%; margin-bottom: 100px">
+            <span style="color: #85bd4b; font-weight: 600; width: 100%">Masz pytania?</span>
+            <span style="color: #000; width: 100%"
+            >Pisz do nas na adres: <a href="mailto:ep@wsei.edu.pl" style="color: #85bd4b; text-decoration: underline; font-weight: 400">ep@wsei.edu.pl</a
+            ></span>
+        </p>
+
+
+        <hr/>
+        <p style="font-weight: 400; font-size: 14px; line-height: 27px; margin-block: 25px 40px; width: 100%; color: #919191">
+            Jeśli chcesz zadać pytanie w sprawie konkursu lub naszej działalności koła naukowego, zapraszamy do
+            kontaktu!<br/>
+            Email wydarzenia Elevator Pitch: ep@wsei.edu.pl<br/>
+            Email koła naukowego: dth@wsei.edu.pl<br/>
+            Strona na Facebooku: <a href="https://www.facebook.com/dthwsei">https://www.facebook.com/dthwsei</a><br/>
+            <img src="https://i.imgur.com/eXYI0IH.png" alt="logo" style="width:200px"></p>
+    </div>
+</div>
+</body>
+</html>
