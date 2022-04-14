@@ -33,11 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
-    //    @Bean
-//    PasswordEncoder getPasswordEncoder ()
-//    {
-//        return new BCryptPasswordEncoder();
-//    }
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder
@@ -65,8 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
-                .mvcMatchers(HttpMethod.POST, "/register").permitAll()
-                .antMatchers(HttpMethod.POST, "/register").permitAll()
+                .mvcMatchers(HttpMethod.POST,"/register").permitAll()
+                .antMatchers(HttpMethod.POST,"/register").permitAll()
                 .mvcMatchers("/validate").permitAll()
                 .mvcMatchers("/resendEmail").permitAll()
                 .mvcMatchers("/editUserData").hasRole("USER")

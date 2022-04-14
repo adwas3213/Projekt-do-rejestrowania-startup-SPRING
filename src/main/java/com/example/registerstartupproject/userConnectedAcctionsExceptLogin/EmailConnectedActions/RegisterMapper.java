@@ -32,8 +32,6 @@ public class RegisterMapper {
         return registerTeam;
     }
 
-    ///We won't change any user authorities
-///To change password use other endpoint
     @Transactional
     public RegisterTeam mapToRegisterTeamRegisterDtoOuter(RegisterDtoOuter registerDtoOuter, RegisterTeam registerTeam) {
         List<Member> members = registerTeam.getMembers();
@@ -47,7 +45,6 @@ public class RegisterMapper {
     }
 
     public Address mapToAddressAddressDtoOuter(AddressDtoOuter addressDtoOuter) {
-        ///OK
         Address address = new Address();
         address.setCity(addressDtoOuter.getCity());
         address.setNumber(addressDtoOuter.getNumber());

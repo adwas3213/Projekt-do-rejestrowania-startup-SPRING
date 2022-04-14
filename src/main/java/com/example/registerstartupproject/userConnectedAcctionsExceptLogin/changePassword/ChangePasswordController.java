@@ -18,7 +18,6 @@ public class ChangePasswordController {
     @PostMapping("/changePassword")
     public void changePassword(@RequestBody PasswordDTO password
             , @CurrentSecurityContext SecurityContext user) {
-//WORKS CORRECTLY
         changePasswordService.changePassword(password.getPassword(), user.getAuthentication().getName());
     }
 }

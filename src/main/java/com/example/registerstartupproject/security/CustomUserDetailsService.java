@@ -22,7 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (teamOptional.isPresent()) {
 
             RegisterTeam registerTeam = teamOptional.get();
-            System.out.println(registerTeam);
             String[] roles;
             roles = registerTeam.getRoles().stream().map(Role::toString).toArray(String[]::new);
             return User

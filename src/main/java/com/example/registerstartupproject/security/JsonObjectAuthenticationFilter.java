@@ -22,9 +22,7 @@ public class JsonObjectAuthenticationFilter extends UsernamePasswordAuthenticati
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            System.out.println(sb);
             LoginCredentials authRequest = objectMapper.readValue(sb.toString(), LoginCredentials.class);
-            System.out.println(authRequest);
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     authRequest.getUsername(), authRequest.getPassword()
             );

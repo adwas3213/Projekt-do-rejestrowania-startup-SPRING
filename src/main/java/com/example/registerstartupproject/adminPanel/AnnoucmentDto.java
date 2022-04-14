@@ -15,9 +15,6 @@ public class AnnoucmentDto {
     @NotNull
 
     private String text;
-    @NotEmpty
-    @NotNull
 
-    private String AnnouncementDto;
 
 }

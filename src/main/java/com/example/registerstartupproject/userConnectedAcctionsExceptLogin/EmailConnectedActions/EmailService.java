@@ -13,6 +13,8 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class EmailService {
@@ -38,7 +40,7 @@ public class EmailService {
         this.fromWhereEmailIsSend = fromWhereEmailIsSend;
     }
 
-    public void sendMail(RegisterDtoOuter user, TokenToRegistry token) throws MessagingException {
+    public void sendMail(RegisterDtoOuter user, TokenToRegistry token) throws MessagingException, UnsupportedEncodingException {
         Context context = new Context();
         context.setVariable("user", user);
         context.setVariable("validateLink", frontEndLink + "/validate?token=" + token.getToken());
@@ -51,12 +53,12 @@ public class EmailService {
         helper.setSubject("Witaj w konkursie Elevator pitch !");
         helper.setText(process, true);
         helper.setTo(user.getEmail());
-        helper.setFrom(fromWhereEmailIsSend);
+        helper.setFrom(fromWhereEmailIsSend,"Elevator Pitch WSEI");
         javaMailSender.send(mimeMessage);
 
     }
 
-    public void sendMail(RegisterTeam user) throws MessagingException {
+    public void sendMail(RegisterTeam user) throws MessagingException, UnsupportedEncodingException {
         Context context = new Context();
         context.setVariable("user", user);
         context.setVariable("validateLink", frontEndLink + "/validate?token=" + user.getTokenToRegistry().getToken());
@@ -69,12 +71,12 @@ public class EmailService {
         helper.setSubject("Witaj w konkursie Elevator pitch !");
         helper.setText(process, true);
         helper.setTo(user.getEmail());
-        helper.setFrom(fromWhereEmailIsSend);
+        helper.setFrom(fromWhereEmailIsSend,"Elevator Pitch WSEI");
         javaMailSender.send(mimeMessage);
 
     }
 
-    public void sendMail(ContactDTO contactDTO) throws MessagingException {
+    public void sendMail(ContactDTO contactDTO) throws MessagingException, UnsupportedEncodingException {
         Context context = new Context();
         context.setVariable("userWithMessage", contactDTO);
 
@@ -85,14 +87,13 @@ public class EmailService {
 
         helper.setSubject(contactDTO.getName() + " zostawił wiadomość");
         helper.setText(process, true);
-        System.out.println(supportEmail);
         helper.setTo(supportEmail);
-        helper.setFrom(fromWhereEmailIsSend);
+        helper.setFrom(fromWhereEmailIsSend,"Elevator Pitch WSEI");
         javaMailSender.send(mimeMessage);
 
     }
 
-    public void sendMail(AnnoucmentDto annoucment, String toWhomItWillBeSent, RegisterTeam registerTeam) throws MessagingException {
+    public void sendMail(AnnoucmentDto annoucment, String toWhomItWillBeSent, RegisterTeam registerTeam) throws MessagingException, UnsupportedEncodingException {
         Context context = new Context();
         context.setVariable("annoucment", annoucment);
         context.setVariable("team", registerTeam);
@@ -104,7 +105,8 @@ public class EmailService {
         helper.setSubject(annoucment.getTopic());
         helper.setText(process, true);
         helper.setTo(toWhomItWillBeSent);
-        helper.setFrom(fromWhereEmailIsSend);
+        helper.setFrom(fromWhereEmailIsSend,"Elevator Pitch WSEI");
+        helper.setFrom(new InternetAddress());
         javaMailSender.send(mimeMessage);
 
     }

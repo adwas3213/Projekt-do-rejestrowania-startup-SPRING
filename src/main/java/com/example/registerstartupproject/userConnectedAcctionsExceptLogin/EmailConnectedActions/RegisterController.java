@@ -24,7 +24,6 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<StatusOfRequest> register(@RequestBody @Valid RegisterDtoOuter registerDtoOuter,
                                                     HttpServletResponse response) {
-        System.out.println(registerDtoOuter);
         StatusOfRequest responseStatus = registerService.createNewTeamWithValidation(registerDtoOuter);
 
         if(responseStatus== StatusOfRequest.EMAIL_EXIST)
