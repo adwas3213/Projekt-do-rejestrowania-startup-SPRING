@@ -5,10 +5,3 @@ spring:
     host : smtp.office365.com
     port: 587
     protocol: smtp
-
-  properties:
-    mail:
-      smtp:
-#        auth: true
-#        starttls:
-#          enable: true

@@ -9,12 +9,8 @@ import javax.validation.constraints.NotNull;
 public class AnnoucmentDto {
     @NotEmpty
     @NotNull
-
     private String topic;
     @NotEmpty
     @NotNull
-
     private String text;
-
-
 }

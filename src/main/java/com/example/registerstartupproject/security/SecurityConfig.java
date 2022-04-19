@@ -24,7 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final RestAuthenticationSuccessHandler authenticationSuccessHandler;
     private final String secret;
     private final UserDetailsService userDetailsService;
-
     public SecurityConfig(RestAuthenticationFailureHandler authenticationFailureHandler, RestAuthenticationSuccessHandler authenticationSuccessHandler,
                           @Value("${jwt.secret}") String secret, UserDetailsService userDetailsService) {
         this.authenticationFailureHandler = authenticationFailureHandler;
@@ -32,33 +31,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.secret = secret;
         this.userDetailsService = userDetailsService;
     }
-
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder
                 .userDetailsService(userDetailsService);
     }
-
     @Override
     public void configure(WebSecurity web) throws Exception {
 
         web.ignoring().antMatchers("/register")
                 .mvcMatchers("/validate")
                 .mvcMatchers("/resendEmail")
-                .mvcMatchers("/editUserData")
                 .mvcMatchers("/contact-form");
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http
                 .authorizeRequests()
+                .mvcMatchers("/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .mvcMatchers(HttpMethod.POST,"/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/register").permitAll()
@@ -81,13 +76,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
     }
-
     @Bean
     public JsonObjectAuthenticationFilter authenticationFilter() throws Exception {
         JsonObjectAuthenticationFilter filter = new JsonObjectAuthenticationFilter();
         filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         filter.setAuthenticationFailureHandler(authenticationFailureHandler);
-
         filter.setAuthenticationManager(super.authenticationManager());
         return filter;
     }

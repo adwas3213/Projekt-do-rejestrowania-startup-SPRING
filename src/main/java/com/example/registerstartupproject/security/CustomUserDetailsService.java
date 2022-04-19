@@ -1,7 +1,7 @@
 package com.example.registerstartupproject.security;
 
-import com.example.registerstartupproject.Repository.Entity.RegisterTeam;
-import com.example.registerstartupproject.Repository.Entity.Role;
+import com.example.registerstartupproject.entity.RegisterTeam;
+import com.example.registerstartupproject.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,11 +1,11 @@
 package com.example.registerstartupproject.adminPanel;
 
-import com.example.registerstartupproject.Repository.Entity.Address;
-import com.example.registerstartupproject.Repository.Entity.Member;
-import com.example.registerstartupproject.Repository.Entity.RegisterTeam;
-import com.example.registerstartupproject.Repository.Entity.Role;
-import com.example.registerstartupproject.Repository.RegisterTeamRepository;
-import com.example.registerstartupproject.Repository.RoleRepository;
+import com.example.registerstartupproject.entity.Address;
+import com.example.registerstartupproject.entity.Member;
+import com.example.registerstartupproject.entity.RegisterTeam;
+import com.example.registerstartupproject.entity.Role;
+import com.example.registerstartupproject.repository.RegisterTeamRepository;
+import com.example.registerstartupproject.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -20,21 +20,15 @@ public class BeginUsersSeed {
     private String adminPassword;
     @Value("${admin.email}")
     private String adminEmail;
-
     @Value("${testUser.password}")
     private String testUserPassword;
     @Value("${testUser.email}")
     private String testUserEmail;
-
-
     private final RoleRepository roleRepository;
     private final RegisterTeamRepository registerTeamRepository;
-
-    public void createAccounts()
-    {
+    public void createAccounts() {
         createAdminAccount();
         createTestUserAccount();
-
     }
     private void createAdminAccount() {
         if (!registerTeamRepository.existsByEmail(adminEmail)) {
@@ -50,10 +44,8 @@ public class BeginUsersSeed {
             registerTeam.setEmail(adminEmail);
             registerTeamRepository.save(registerTeam);
         }
-
     }
-    private void createTestUserAccount()
-    {
+    private void createTestUserAccount() {
         if (!registerTeamRepository.existsByEmail(testUserEmail)) {
             Role role = new Role("TEST");
             if (!roleRepository.existsById("TEST")) {
@@ -71,7 +63,7 @@ public class BeginUsersSeed {
             backend.setSchool("Akademia Górniczo-Hutnicza");
             backend.setPhoneNumber("555555555");
             backend.setEmail("mail@example.com");
-            Address address=new Address();
+            Address address = new Address();
             address.setStreet("przykładowa ulica");
             address.setNumber("4");
             address.setPostal("33-130");
@@ -84,15 +76,14 @@ public class BeginUsersSeed {
             frontend.setPhoneNumber("444444444");
             frontend.setEmail("mail@example.com");
             frontend.setLeader(true);
-            Address addressfront=new Address();
-            addressfront.setCity("Tarnów");
-            addressfront.setPostal("33-100");
-            addressfront.setNumber("15");
-            addressfront.setStreet("przykładowa ulica");
-            frontend.setAddress(addressfront);
-            registerTeam.setMembers(List.of(frontend,backend));
+            Address frontendAddress = new Address();
+            frontendAddress.setCity("Tarnów");
+            frontendAddress.setPostal("33-100");
+            frontendAddress.setNumber("15");
+            frontendAddress.setStreet("przykładowa ulica");
+            frontend.setAddress(frontendAddress);
+            registerTeam.setMembers(List.of(frontend, backend));
             registerTeamRepository.save(registerTeam);
         }
-
     }
 }

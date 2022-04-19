@@ -1,6 +1,6 @@
 package com.example.registerstartupproject.adminPanel;
 
-import com.example.registerstartupproject.Repository.Entity.RegisterTeam;
+import com.example.registerstartupproject.entity.RegisterTeam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "${frontEndLink}", allowedHeaders = "*")
+@CrossOrigin(origins = {"${frontEndLink}", "${localfrontURL}"}, allowedHeaders = "*")
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -22,15 +22,12 @@ public class AdminController {
                 .collect(Collectors.toList());
         return registerTeamList;
     }
-
     @PostMapping("/admin/setQualifcationStatusAndComment/{id}")
     public void setQualificationStatus(@PathVariable Long id, @RequestBody IdeaFromAdminDTO status) {
         adminService.setQualificationStatus(id, status);
     }
-
     @PostMapping("/admin/annouce")
     public void announce(@RequestBody AnnoucmentDto annoucmentDto) {
         adminService.announceToEveryTeam(annoucmentDto);
     }
-
 }

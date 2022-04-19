@@ -1,7 +1,7 @@
 package com.example.registerstartupproject.security;
 
-import com.example.registerstartupproject.Repository.Entity.RegisterTeam;
-import com.example.registerstartupproject.Repository.RegisterTeamRepository;
+import com.example.registerstartupproject.entity.RegisterTeam;
+import com.example.registerstartupproject.repository.RegisterTeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
