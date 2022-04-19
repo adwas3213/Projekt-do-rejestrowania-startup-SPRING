@@ -8,12 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class RegisterIdea {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

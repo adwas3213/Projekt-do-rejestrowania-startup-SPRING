@@ -12,12 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,11 +12,14 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@AllArgsConstructor
-@NoArgsConstructor
 public class TokenToRegistry {
     @Id
     private String token;
+
+    public TokenToRegistry(String token) {
+        this.token = token;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

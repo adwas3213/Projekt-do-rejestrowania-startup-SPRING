@@ -13,12 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class RegisterTeam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
