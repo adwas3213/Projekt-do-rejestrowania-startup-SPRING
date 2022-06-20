@@ -1,4 +1,4 @@
-package com.example.registerstartupproject.security;
+package com.example.registerstartupproject.securityAndUtitilies;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

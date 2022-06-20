@@ -1,4 +1,4 @@
-package com.example.registerstartupproject.security;
+package com.example.registerstartupproject.securityAndUtitilies;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

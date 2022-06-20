@@ -1,4 +1,4 @@
-package com.example.registerstartupproject.security.config;
+package com.example.registerstartupproject.securityAndUtitilies.config;
 
 
 import org.springframework.beans.factory.annotation.Value;
