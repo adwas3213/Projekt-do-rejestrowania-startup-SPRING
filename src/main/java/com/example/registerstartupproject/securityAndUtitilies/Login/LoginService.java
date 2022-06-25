@@ -1,4 +1,4 @@
-package com.example.registerstartupproject.securityAndUtitilies;
+package com.example.registerstartupproject.securityAndUtitilies.Login;
 
 import com.example.registerstartupproject.entity.RegisterTeam;
 import com.example.registerstartupproject.repository.RegisterTeamRepository;
