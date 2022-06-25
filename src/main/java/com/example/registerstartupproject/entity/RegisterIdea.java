@@ -12,11 +12,16 @@ import java.util.Objects;
 public class RegisterIdea {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-   private Long id;
-   private String review;
-   private LocalDateTime reviewSendingDate;
+    private Long id;
+    private String review;
+    private LocalDateTime reviewSendingDate;
+    private String ideaLink;
+    private String applicationLink;
+    private LocalDateTime insertIdeaAndApplicationTime;
+
     @Enumerated(EnumType.ORDINAL)
-   private Status status;
+    private Status status;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -24,6 +29,7 @@ public class RegisterIdea {
         RegisterIdea that = (RegisterIdea) o;
         return id != null && Objects.equals(id, that.id);
     }
+
     @Override
     public int hashCode() {
         return getClass().hashCode();

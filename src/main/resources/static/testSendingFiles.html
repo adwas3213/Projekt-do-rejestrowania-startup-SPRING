@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test wysylania plikow</title>
+</head>
+<body>
+<form method="post" id="form">
+    <input type="file" name="application" id="application" />
+    <input type="file" name="idea" id="idea" />
+    <input type="submit" value="Wyslij" />
+</form>
+
+<script>
+    const application = document.getElementById("application");
+    const presentation = document.getElementById("idea");
+    const form = document.getElementById("form");
+
+    const files = new Array(2).fill(null);
+
+    application.addEventListener("change", function () {
+        const file = application.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            files[0] = reader.result;
+        };
+    });
+
+    presentation.addEventListener("change", function () {
+        const file = presentation.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            files[1] = reader.result;
+        };
+    });
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const data = new FormData(form);
+        sendData(data);
+    });
+
+    const sendData = async (data) => {
+        const response = await fetch("http://localhost:8080/insertIdea", {
+            method: "POST",
+            body: data,
+            headers: {
+                Authorization:
+                    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHRlc3QucGwiLCJleHAiOjE2NTU3NTYzNzF9.lOoXfTZrLVgsMDW684MiD5Un_G0vRObUF51bMCE5Pds",
+            },
+        });
+        const dataresult = await response.json();
+        console.log(dataresult);
+        return dataresult;
+    };
+</script>
+</body>
+</html>
