@@ -6,6 +6,7 @@ import com.example.registerstartupproject.entity.RegisterTeam;
 import com.example.registerstartupproject.entity.Role;
 import com.example.registerstartupproject.repository.RegisterTeamRepository;
 import com.example.registerstartupproject.repository.RoleRepository;
+import com.example.registerstartupproject.securityAndUtitilies.HashPasswordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class BeginUsersSeed {
+   private final HashPasswordService hashPasswordService;
     @Value("${admin.password}")
     private String adminPassword;
     @Value("${admin.email}")
@@ -37,7 +39,8 @@ public class BeginUsersSeed {
                 roleRepository.save(role);
             }
             RegisterTeam registerTeam = new RegisterTeam();
-            registerTeam.setPassword(adminPassword);
+            hashPasswordService.setPasswordEncodedPassword(registerTeam,adminPassword);
+//            registerTeam.setPassword(adminPassword);
             registerTeam.setEnabled(true);
             registerTeam.setRoles(Set.of(role));
             registerTeam.setUsername("Admin");
@@ -52,7 +55,8 @@ public class BeginUsersSeed {
                 roleRepository.save(role);
             }
             RegisterTeam registerTeam = new RegisterTeam();
-            registerTeam.setPassword(testUserPassword);
+            hashPasswordService.setPasswordEncodedPassword(registerTeam,testUserPassword);
+//            registerTeam.setPassword(testUserPassword);
             registerTeam.setEnabled(true);
             registerTeam.setRoles(Set.of(role));
             registerTeam.setUsername("TestUser");
